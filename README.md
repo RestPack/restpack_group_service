@@ -1,29 +1,13 @@
-# RestpackGroupService
+# restpack_group_service
 
-TODO: Write a gem description
+[![Build Status](https://travis-ci.org/RestPack/restpack_group_service.png?branch=master)](https://travis-ci.org/RestPack/restpack_group_service) [![Code Climate](https://codeclimate.com/github/RestPack/restpack_group_service.png)](https://codeclimate.com/github/RestPack/restpack_group_service) [![Dependency Status](https://gemnasium.com/RestPack/restpack_group_service.png)](https://gemnasium.com/RestPack/restpack_group_service) [![Gem Version](https://badge.fury.io/rb/restpack_group_service.png)](http://badge.fury.io/rb/restpack_group_service)
 
-## Installation
+**Work In Progress**
 
-Add this line to your application's Gemfile:
+This gem provides services for managing Groups, Memberships and Invitations.
 
-    gem 'restpack_group_service'
+## Development Setup
 
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install restpack_group_service
-
-## Usage
-
-TODO: Write usage instructions here
-
-## Contributing
-
-1. Fork it
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
+1. install postgres
+2. create a `restpack_group_service_test` database
+3. rake
