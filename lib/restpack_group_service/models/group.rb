@@ -7,5 +7,8 @@ module RestPack::Group::Service::Models
 
     validates :name, :length => { :maximum => 256 }
     validates :description, :length => { :maximum => 1024 }
+
+    has_many :memberships
+    has_many :invitations
   end
 end
