@@ -8,4 +8,3 @@ describe RestPack::Group::Service::Models::Membership do
   it { should belong_to(:group) }
   it { should belong_to(:invitation) }
 end
-

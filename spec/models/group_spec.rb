@@ -10,5 +10,17 @@ describe RestPack::Group::Service::Models::Group do
 
   it { should have_many(:memberships) }
   it { should have_many(:invitations) }
-end
 
+  context "when creating" do
+    context "a valid group" do
+      before do
+        @group = create(:group)
+      end
+
+      it "should create a default member" do
+        @group.memberships.count.should == 1
+        @group.memberships.first.user_id.should == @group.created_by
+      end
+    end
+  end
+end
