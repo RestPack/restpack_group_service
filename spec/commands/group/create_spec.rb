@@ -12,7 +12,10 @@ describe RestPack::Group::Service::Commands::Group::Create do
       let(:group) { {
         application_id: 123,
         created_by: 234,
-        name: "My New Group"
+        name: 'My New Group',
+        account_id: 345,
+        description: 'this is the description',
+        invitation_required: true
       } }
       let(:params) { {
         groups: [group]
@@ -27,6 +30,9 @@ describe RestPack::Group::Service::Commands::Group::Create do
         groups.first[:application_id].should == 123
         groups.first[:created_by].should == 234
         groups.first[:name].should == "My New Group"
+        groups.first[:account_id].should == 345
+        groups.first[:description].should == 'this is the description'
+        groups.first[:invitation_required].should == true
       end
     end
   end
