@@ -13,7 +13,7 @@ module RestPack::Group::Service::Models
     belongs_to :group
     has_many :memberships
 
-    scope :available, where(:status_id => STATUS[:available])
+    scope :available, -> { where(:status_id => STATUS[:available]) }
 
     def self.by_application_id(application_id)
       self.where 'application_id = ?', application_id
