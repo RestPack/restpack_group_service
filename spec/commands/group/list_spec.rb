@@ -37,7 +37,6 @@ describe RestPack::Group::Service::Commands::Group::List do
       context 'valid' do
         let(:params) { { application_id: 123, account_id: 345 } }
         it 'returns activities' do
-          p response
           response.result[:meta][:groups][:count].should == 2
         end
       end
