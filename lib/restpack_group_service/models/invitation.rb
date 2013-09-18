@@ -4,7 +4,7 @@ module RestPack::Group::Service::Models
 
     STATUS = { pending: 0, available: 1, accepted: 2, cancelled: 3, expired: 4 }
     attr_accessor :access_key_length, :status
-    attr_accessible :access_key_length, :channel_id, :email, :expires_at, :group_id, :invitee_id, :inviter_id, :remaining_uses, :status
+    attr_accessible :access_key_length, :application_id, :email, :expires_at, :group_id, :invitee_id, :inviter_id, :remaining_uses, :status
 
     validates_presence_of :application_id, :group_id, :inviter_id, :status_id
     validates :email, :length => { maximum: 512 }
@@ -12,5 +12,88 @@ module RestPack::Group::Service::Models
 
     belongs_to :group
     has_many :memberships
+
+    scope :available, where(:status_id => STATUS[:available])
+
+    def self.by_application_id(application_id)
+      self.where 'application_id = ?', application_id
+    end
+
+    def self.by_access_key(key)
+      self.where 'access_key = ?', key
+    end
+
+    after_initialize :set_defaults
+    before_create :generate_access_key
+
+    def status
+      STATUS.key(read_attribute(:status_id))
+    end
+
+    def status=(status)
+      write_attribute(:status_id, STATUS[status])
+    end
+
+    def self.accept(application_id, user_id, access_key) #TODO: GJ: skip if already a member
+      invitation = self.available.by_application_id(application_id).by_access_key(access_key).first
+
+      raise "Invalid invitation" unless invitation
+
+      invitation.accept(user_id)
+    end
+
+    def accept(user_id)
+      validate! user_id
+
+      transaction do
+        membership = Membership.new application_id: application_id, group_id: group_id, user_id: user_id
+        self.memberships << membership
+        self.use!
+
+        membership
+      end
+    end
+
+    def self.access_key_unique?(application_id, access_key)
+      self.by_application_id(application_id).by_access_key(access_key).empty?
+    end
+
+    protected
+
+    def use!
+      if single_use?
+        self.status = :accepted
+      else
+        self.remaining_uses -= 1
+      end
+      self.save!
+    end
+
+    private
+
+    def validate!(user_id)
+      raise "Invitation is #{status}" unless status == :available
+      raise "Invalid invitee" unless invitee_id.nil? || invitee_id == user_id.to_i
+      raise "Invitation has expired" unless remaining_uses.nil? || remaining_uses > 0
+      raise "Invitation has expired" unless expires_at.nil? || expires_at > Time.now
+    end
+
+    def single_use?
+      remaining_uses.nil? || remaining_uses <= 1
+    end
+
+    def set_defaults
+      self.access_key_length ||= 16
+      self.status ||= :available
+    end
+
+    def generate_access_key
+      length = access_key_length.to_i
+
+      loop do
+        self.access_key = SecureRandom.urlsafe_base64(length).first(length)
+        break if Invitation.access_key_unique?(application_id, access_key)
+      end
+    end
   end
 end
