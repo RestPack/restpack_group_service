@@ -21,6 +21,7 @@ module RestPack::Group::Service::Commands
         scope = scope.where(application_id: application_id)
         scope = scope.where(account_id: account_id) if account_id
         scope = scope.where(group_id: group_id) if group_id
+        scope = scope.where(user_id: user_id) if user_id
 
         if is_account_group
           scope = scope.where("account_id IS NOT NULL")
