@@ -10,6 +10,7 @@ module RestPack::Group::Service::Commands
         integer :created_by
         integer :page
         integer :page_size
+        boolean :is_account_group, default: false
       end
 
       def execute
@@ -19,6 +20,12 @@ module RestPack::Group::Service::Commands
         scope = scope.where(application_id: application_id)
         scope = scope.where(account_id: account_id) if account_id
         scope = scope.where(created_by: created_by) if created_by
+
+        if is_account_group || account_id
+          scope = scope.where("account_id IS NOT NULL")
+        else
+          scope = scope.where("account_id IS NULL")
+        end
 
         RestPack::Group::Service::Serializers::GroupSerializer.resource(
           inputs, scope

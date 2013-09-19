@@ -16,14 +16,14 @@ describe RestPack::Group::Service::Commands::Group::List do
 
       context 'valid' do
         let(:params) { { application_id: 123 } }
-        it 'returns activities' do
+        it 'returns groups' do
           response.result[:meta][:groups][:count].should == 3
         end
       end
 
       context 'invalid' do
         let(:params) { { application_id: 999999 } }
-        it 'returns no activities' do
+        it 'returns no groups' do
           response.result[:meta][:groups][:count].should == 0
         end
       end
@@ -32,19 +32,29 @@ describe RestPack::Group::Service::Commands::Group::List do
     end
 
     context ':account_id' do
-      before { create_list(:group, 2, application_id: 123, account_id: 345) }
+      before do
+        create_list(:group, 2, application_id: 123)
+        create_list(:group, 2, application_id: 123, account_id: 345)
+      end
 
       context 'valid' do
         let(:params) { { application_id: 123, account_id: 345 } }
-        it 'returns activities' do
+        it 'returns groups' do
           response.result[:meta][:groups][:count].should == 2
         end
       end
 
       context 'invalid' do
         let(:params) { { application_id: 123, account_id: 999999 } }
-        it 'returns no activities' do
+        it 'returns no groups' do
           response.result[:meta][:groups][:count].should == 0
+        end
+      end
+
+      context ':is_account_group' do
+        let(:params) { { application_id: 123, is_account_group: true } }
+        it 'returns groups that have an account' do
+          response.result[:meta][:groups][:count].should == 2
         end
       end
     end
