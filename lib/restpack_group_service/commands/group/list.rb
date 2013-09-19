@@ -21,10 +21,10 @@ module RestPack::Group::Service::Commands
         scope = scope.where(account_id: account_id) if account_id
         scope = scope.where(created_by: created_by) if created_by
 
-        if is_account_group || account_id
+        if is_account_group
           scope = scope.where("account_id IS NOT NULL")
         else
-          scope = scope.where("account_id IS NULL")
+          scope = scope.where("account_id IS NULL") unless account_id
         end
 
         RestPack::Group::Service::Serializers::GroupSerializer.resource(

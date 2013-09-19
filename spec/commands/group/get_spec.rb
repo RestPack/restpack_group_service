@@ -30,7 +30,7 @@ describe RestPack::Group::Service::Commands::Group::Get do
     let(:params) { {
       id: 142857,
       application_id: @group.application_id
-    }}
+    } }
 
     it 'is :not_found' do
       response.success?.should == false
