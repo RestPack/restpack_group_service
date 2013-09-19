@@ -10,6 +10,6 @@ require "restpack_group_service/version"
 require_rel "restpack_group_service/models"
 require_rel "restpack_group_service/serializers"
 
-# require "restpack_group_service/tasks"
+require "restpack_group_service/tasks"
 
 require_rel "restpack_group_service/commands"
