@@ -14,12 +14,13 @@ describe RestPack::Group::Service::Models::Group do
   context "when creating" do
     context "a valid group" do
       before do
-        @group = create(:group)
+        @group = create(:group, account_id: 999)
       end
 
       it "should create a default member" do
         @group.memberships.count.should == 1
         @group.memberships.first.user_id.should == @group.created_by
+        @group.memberships.first.account_id.should == @group.account_id
       end
     end
   end

@@ -21,7 +21,11 @@ module RestPack::Group::Service::Models
     end
 
     def create_default_member
-      self.memberships << Membership.new(user_id: self.created_by, application_id: self.application_id)
+      self.memberships << Membership.new(
+        user_id: self.created_by,
+        application_id: self.application_id,
+        account_id: self.account_id
+      )
     end
   end
 end
