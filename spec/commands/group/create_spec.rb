@@ -5,7 +5,7 @@ describe RestPack::Group::Service::Commands::Group::Create do
   # is_required :application_id, :created_by, :name
   # is_optional :account_id, :description, :invitation_required
 
-  context 'creating an group' do
+  context 'creating a group' do
     let(:response) { subject.class.run(params) }
 
     context 'with valid params' do
@@ -21,7 +21,7 @@ describe RestPack::Group::Service::Commands::Group::Create do
         groups: [group]
       } }
 
-      it 'returns the newly created activity' do
+      it 'returns the newly created group' do
         response.success?.should == true
 
         groups = response.result[:groups]
