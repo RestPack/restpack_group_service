@@ -1,5 +1,5 @@
 module RestPack::Group::Service::Commands
-  module Group
+  module Membership
     class List < RestPack::Service::Command
       required do
         integer :application_id
@@ -7,7 +7,8 @@ module RestPack::Group::Service::Commands
 
       optional do
         integer :account_id
-        integer :created_by
+        integer :group_id
+        integer :user_id
         boolean :is_account_group, default: false
         integer :page
         integer :page_size
@@ -16,10 +17,10 @@ module RestPack::Group::Service::Commands
       def execute
         # TODO: GJ: remove the scope when we can specify custom serializer filters
         #           https://github.com/RestPack/restpack_serializer/issues/42
-        scope = RestPack::Group::Service::Models::Group.all
+        scope = RestPack::Group::Service::Models::Membership.all
         scope = scope.where(application_id: application_id)
         scope = scope.where(account_id: account_id) if account_id
-        scope = scope.where(created_by: created_by) if created_by
+        scope = scope.where(group_id: group_id) if group_id
 
         if is_account_group
           scope = scope.where("account_id IS NOT NULL")
@@ -27,7 +28,7 @@ module RestPack::Group::Service::Commands
           scope = scope.where("account_id IS NULL") unless account_id
         end
 
-        RestPack::Group::Service::Serializers::GroupSerializer.resource(
+        RestPack::Group::Service::Serializers::MembershipSerializer.resource(
           inputs, scope
         )
       end
