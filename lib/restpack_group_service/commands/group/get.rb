@@ -7,12 +7,7 @@ module RestPack::Group::Service::Commands
       end
 
       def execute
-        # TODO: GJ: remove the :application_id scope when we can specify custom serializer filters
-        #          https://github.com/RestPack/restpack_serializer/issues/42
-        result = Serializers::Group.resource(
-          inputs,
-          Models::Group.where(application_id: inputs[:application_id])
-        )
+        result = Serializers::Group.resource(inputs)
 
         if result[:groups].empty?
           status :not_found
