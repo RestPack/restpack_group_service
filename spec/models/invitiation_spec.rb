@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe RestPack::Group::Service::Models::Invitation do
+describe Models::Invitation do
   it { should validate_presence_of(:application_id) }
   it { should validate_presence_of(:group_id) }
   it { should validate_presence_of(:inviter_id) }
@@ -14,8 +14,8 @@ describe RestPack::Group::Service::Models::Invitation do
   it { should belong_to(:group) }
   it { should have_many(:memberships) }
 
-  Membership = RestPack::Group::Service::Models::Membership
-  Invitation = RestPack::Group::Service::Models::Invitation
+  Membership = Models::Membership
+  Invitation = Models::Invitation
 
   context "when accepting" do
     context "a valid single-use user invitation" do

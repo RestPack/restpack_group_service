@@ -1,6 +1,6 @@
 require_relative '../../spec_helper'
 
-describe RestPack::Group::Service::Commands::Group::List do
+describe Commands::Group::List do
   is_required :application_id
   is_optional :account_id, :created_by, :is_account_group, :page, :page_size
 

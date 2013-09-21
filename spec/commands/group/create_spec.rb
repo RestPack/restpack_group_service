@@ -1,6 +1,6 @@
 require_relative '../../spec_helper'
 
-describe RestPack::Group::Service::Commands::Group::Create do
+describe Commands::Group::Create do
   #TODO: GJ: validate array
   # is_required :application_id, :created_by, :name
   # is_optional :account_id, :description, :invitation_required

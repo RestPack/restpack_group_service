@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe RestPack::Group::Service::Models::Group do
+describe Models::Group do
   it { should validate_presence_of(:application_id) }
   it { should validate_presence_of(:created_by) }
   it { should validate_presence_of(:name) }

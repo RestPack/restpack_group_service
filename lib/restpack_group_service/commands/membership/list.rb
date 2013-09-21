@@ -17,7 +17,7 @@ module RestPack::Group::Service::Commands
       def execute
         # TODO: GJ: remove the scope when we can specify custom serializer filters
         #           https://github.com/RestPack/restpack_serializer/issues/42
-        scope = RestPack::Group::Service::Models::Membership.all
+        scope = Models::Membership.all
         scope = scope.where(application_id: application_id)
         scope = scope.where(account_id: account_id) if account_id
         scope = scope.where(group_id: group_id) if group_id
@@ -29,9 +29,7 @@ module RestPack::Group::Service::Commands
           scope = scope.where("account_id IS NULL") unless account_id
         end
 
-        RestPack::Group::Service::Serializers::MembershipSerializer.resource(
-          inputs, scope
-        )
+        Serializers::Membership.resource(inputs, scope)
       end
     end
   end

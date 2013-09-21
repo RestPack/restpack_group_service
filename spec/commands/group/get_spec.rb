@@ -1,6 +1,6 @@
 require_relative '../../spec_helper'
 
-describe RestPack::Group::Service::Commands::Group::Get do
+describe Commands::Group::Get do
   is_required :id, :application_id
 
   let(:response) { subject.class.run(params) }
