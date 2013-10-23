@@ -2,8 +2,12 @@ module RestPack::Group::Service::Commands
   module Group
     class Get < RestPack::Service::Command
       required do
-        integer :id
+        string :id
         integer :application_id
+      end
+
+      optional do
+        string :includes
       end
 
       def execute

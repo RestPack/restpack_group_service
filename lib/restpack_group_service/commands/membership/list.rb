@@ -12,6 +12,7 @@ module RestPack::Group::Service::Commands
         boolean :is_account_group, default: false
         integer :page
         integer :page_size
+        string :includes
       end
 
       def execute
