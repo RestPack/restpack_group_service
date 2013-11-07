@@ -8,6 +8,7 @@ module RestPack::Group::Service::Commands
               integer :application_id
               integer :group_id
               integer :inviter_id
+              string :inviter_name
             end
 
             optional do
@@ -33,6 +34,7 @@ module RestPack::Group::Service::Commands
             template: 'group.invitation',
             to: invitation.email,
             data: {
+              inviter_name: invitation.inviter_name,
               access_key: invitation.access_key,
               group_name: invitation.group.name
             }

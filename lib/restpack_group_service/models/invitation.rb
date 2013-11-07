@@ -7,10 +7,13 @@ module RestPack::Group::Service::Models
       rejected: 3, cancelled: 4, expired: 5
     }
     attr_accessor :access_key_length, :status
-    attr_accessible :access_key_length, :application_id, :email, :expires_at, :group_id, :invitee_id, :inviter_id, :remaining_uses, :status
+    attr_accessible :access_key_length, :application_id, :email, :expires_at,
+                    :group_id, :invitee_id, :inviter_id, :inviter_name,
+                    :remaining_uses, :status
 
-    validates_presence_of :application_id, :group_id, :inviter_id, :status_id
+    validates_presence_of :application_id, :group_id, :inviter_id, :inviter_name, :status_id
     validates :email, :length => { maximum: 512 }
+    validates :inviter_name, :length => { maximum: 128 }
     validates :access_key, :length => { maximum: 128 }
 
     belongs_to :group
