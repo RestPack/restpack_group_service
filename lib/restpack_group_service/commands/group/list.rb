@@ -9,7 +9,7 @@ module RestPack::Group::Service::Commands
         integer :account_id
         integer :created_by
         boolean :is_account_group, default: false
-        string :includes
+        string :include
         integer :page
         integer :page_size
       end

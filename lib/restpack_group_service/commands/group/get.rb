@@ -7,7 +7,7 @@ module RestPack::Group::Service::Commands
       end
 
       optional do
-        string :includes
+        string :include
       end
 
       def execute
