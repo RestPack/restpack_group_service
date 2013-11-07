@@ -2,7 +2,10 @@ module RestPack::Group::Service::Models
   class Invitation < ActiveRecord::Base
     self.table_name = :restpack_invitations
 
-    STATUS = { pending: 0, available: 1, accepted: 2, cancelled: 3, expired: 4 }
+    STATUS = {
+      pending: 0, available: 1, accepted: 2,
+      rejected: 3, cancelled: 4, expired: 5
+    }
     attr_accessor :access_key_length, :status
     attr_accessible :access_key_length, :application_id, :email, :expires_at, :group_id, :invitee_id, :inviter_id, :remaining_uses, :status
 
@@ -54,15 +57,20 @@ module RestPack::Group::Service::Models
       end
     end
 
+    def reject(user_id)
+      validate! user_id
+      self.use! false
+    end
+
     def self.access_key_unique?(application_id, access_key)
       self.by_application_id(application_id).by_access_key(access_key).empty?
     end
 
     protected
 
-    def use!
+    def use!(accept = true)
       if single_use?
-        self.status = :accepted
+        self.status = accept ? :accepted : :rejected
       else
         self.remaining_uses -= 1
       end

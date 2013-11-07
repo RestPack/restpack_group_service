@@ -42,6 +42,25 @@ describe Commands::Invitation::Rsvp do
     end
   end
 
+  context 'when rejecting' do
+    let(:params) { {
+      application_id: @invitation.application_id,
+      access_key: @invitation.access_key,
+      user_id: 142857,
+      accept: false
+    } }
+
+    it 'doesnt add the user to the group' do
+      response.success?.should == true
+      it_has_membership false, @invitation.group, 142857
+    end
+
+    it 'updates the invite status' do
+      response.success?.should == true
+      @invitation.reload.status.should == :rejected
+    end
+  end
+
   def it_has_membership(expected, group, user_id)
     is_member = group.memberships.any? { |member| member.user_id == user_id }
 

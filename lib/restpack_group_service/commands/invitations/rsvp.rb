@@ -5,6 +5,7 @@ module RestPack::Group::Service::Commands
         integer :application_id
         integer :user_id
         string :access_key
+        boolean :accept, default: true
       end
 
       def execute
@@ -14,8 +15,13 @@ module RestPack::Group::Service::Commands
         })
 
         if invitation
-          membership = invitation.accept(inputs[:user_id])
-          Serializers::Membership.serialize(membership)
+          if inputs[:accept]
+            membership = invitation.accept(inputs[:user_id])
+          else
+            invitation.reject(inputs[:user_id])
+          end
+
+          Serializers::Invitation.serialize(invitation)
         else
           status :not_found unless invitation
         end
