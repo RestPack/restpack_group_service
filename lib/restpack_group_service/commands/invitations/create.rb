@@ -19,13 +19,27 @@ module RestPack::Group::Service::Commands
 
       def execute
         invitations = Models::Invitation.create!(inputs[:invitations])
-
-        if inputs[:email]
-          #TODO: GJ: send emails
-        end
-
+        send_email(invitations)
         Serializers::Invitation.serialize(invitations)
       end
+
+      private
+
+    def send_email(invitations)
+      invitations.each do |invitation|
+        if invitation.email
+          Commands::Email::Send.run!({
+            application_id: invitation.application_id,
+            template: 'group.invitation',
+            to: invitation.email,
+            data: {
+              access_key: invitation.access_key,
+              group_name: invitation.group.name
+            }
+          })
+        end
+      end
     end
+   end
   end
 end
