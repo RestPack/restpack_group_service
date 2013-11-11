@@ -1,6 +1,6 @@
 module RestPack::Group::Service::Models
   class Invitation < ActiveRecord::Base
-    self.table_name = :restpack_invitations
+    self.table_name = :restpack_group_invitations
 
     STATUS = {
       pending: 0, available: 1, accepted: 2,

@@ -1,6 +1,6 @@
 class CreateGroups < ActiveRecord::Migration
   def change
-    create_table :restpack_groups do |t|
+    create_table :restpack_group_groups do |t|
       t.integer :application_id,        :null => false
       t.integer :account_id
       t.integer :created_by,            :null => false

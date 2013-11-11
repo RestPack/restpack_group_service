@@ -1,6 +1,6 @@
 class CreateInvitations < ActiveRecord::Migration
   def change
-    create_table :restpack_invitations do |t|
+    create_table :restpack_group_invitations do |t|
       t.integer   :application_id,        :null => false
       t.integer   :group_id,              :null => false
       t.integer   :inviter_id,            :null => false
