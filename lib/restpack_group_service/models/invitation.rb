@@ -40,6 +40,10 @@ module RestPack::Group::Service::Models
       write_attribute(:status_id, STATUS[status])
     end
 
+    def settings
+      Models::Settings.find_or_create_by({ application_id: self.application_id })
+    end
+
     def self.accept(application_id, user_id, access_key) #TODO: GJ: skip if already a member
       invitation = self.available.by_application_id(application_id).by_access_key(access_key).first
 

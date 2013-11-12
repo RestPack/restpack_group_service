@@ -29,8 +29,7 @@ module RestPack::Group::Service::Commands
     def send_email(invitations)
       invitations.each do |invitation|
         if invitation.email
-          #TODO: GJ: add this to group service configuration
-          group_rsvp_url = "http://auth.thingroulette.io:8002/groups/rsvp"
+          rsvp_url = invitation.settings.data['rsvp_url']
 
           Commands::Email::Send.run!({
             application_id: invitation.application_id,
@@ -40,8 +39,8 @@ module RestPack::Group::Service::Commands
               inviter_name: invitation.inviter_name,
               access_key: invitation.access_key,
               group_name: invitation.group.name,
-              accept_url: "#{group_rsvp_url}?access_key=#{invitation.access_key}",
-              reject_url: "#{group_rsvp_url}?access_key=#{invitation.access_key}&accept=false"
+              accept_url: "#{rsvp_url}?access_key=#{invitation.access_key}",
+              reject_url: "#{rsvp_url}?access_key=#{invitation.access_key}&accept=false"
             }
           })
         end

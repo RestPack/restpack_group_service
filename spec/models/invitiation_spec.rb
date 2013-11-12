@@ -19,6 +19,24 @@ describe Models::Invitation do
   Membership = Models::Membership
   Invitation = Models::Invitation
 
+  describe ".settings" do
+    let(:invitation) { create(:invitation, invitee_id: 142857) }
+    context "with existing settings" do
+      it "resolves the correct settings" do
+        setting = Models::Settings.create({
+          application_id: invitation.application_id
+        })
+        invitation.settings.should == setting
+      end
+    end
+
+    context "with no existing settings" do
+      it "resolves settings" do
+        invitation.settings.id.should_not == nil
+      end
+    end
+  end
+
   context "when accepting" do
     context "a valid single-use user invitation" do
       before do
