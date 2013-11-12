@@ -12,7 +12,7 @@ describe Commands::Settings::Update do
 
   let(:params) { {
     settings: [{
-      application_id: 123,
+      id: @setting.id,
       rsvp_url: 'http://new.io/rsvp'
     }]
   } }

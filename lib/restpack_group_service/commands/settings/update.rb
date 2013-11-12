@@ -5,7 +5,7 @@ module RestPack::Group::Service::Commands
         array :settings do
           hash do
             required do
-              integer :application_id
+              integer :id
               string :rsvp_url
             end
           end
@@ -19,10 +19,7 @@ module RestPack::Group::Service::Commands
 
         Models::Settings.transaction do
           inputs[:settings].each do |setting|
-            model = Models::Settings.find_or_create_by({
-              application_id: setting[:application_id]
-            })
-
+            model = Models::Settings.find setting[:id]
             model.data = {
               rsvp_url: setting[:rsvp_url]
             }
