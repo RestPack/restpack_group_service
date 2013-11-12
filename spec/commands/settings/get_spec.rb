@@ -16,7 +16,7 @@ describe Commands::Settings::Get do
       response.result[:settings].length.should == 1
       response.result[:settings].first[:id].should_not == ''
       response.result[:settings].first[:application_id].should == 123
-      response.result[:settings].first[:data].should == {}
+      response.result[:settings].first[:rsvp_url].should == nil
     end
   end
 
@@ -34,11 +34,10 @@ describe Commands::Settings::Get do
 
     it 'returns the settings' do
       response.success?.should == true
-      response.result[:settings].length.should == 1
-      response.result[:settings].first[:id].should == @setting.id.to_s
-      response.result[:settings].first[:data].should == {
-        'rsvp_url' => 'http://somewhere.org/rsvp'
-      }
+      settings = response.result[:settings]
+      settings.length.should == 1
+      settings.first[:id].should == @setting.id.to_s
+      settings.first[:rsvp_url].should == 'http://somewhere.org/rsvp'
     end
   end
 end

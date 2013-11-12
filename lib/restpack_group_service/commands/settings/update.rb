@@ -6,9 +6,7 @@ module RestPack::Group::Service::Commands
           hash do
             required do
               integer :application_id
-              hash :data do
-                string :rsvp_url
-              end
+              string :rsvp_url
             end
           end
         end
@@ -25,9 +23,10 @@ module RestPack::Group::Service::Commands
               application_id: setting[:application_id]
             })
 
-            model.data = setting[:data]
+            model.data = {
+              rsvp_url: setting[:rsvp_url]
+            }
             model.save!
-
             result[:settings] << Serializers::Settings.as_json(model)
           end
         end
