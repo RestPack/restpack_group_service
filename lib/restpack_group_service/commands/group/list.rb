@@ -1,4 +1,4 @@
-module RestPack::Group::Service::Commands
+module Commands::Groups
   module Group
     class List < RestPack::Service::Command
       required do
@@ -15,7 +15,7 @@ module RestPack::Group::Service::Commands
       end
 
       def execute
-        scope = Models::Group.all
+        scope = Models::Groups::Group.all
 
         if is_account_group
           scope = scope.where("account_id IS NOT NULL")
@@ -23,7 +23,7 @@ module RestPack::Group::Service::Commands
           scope = scope.where("account_id IS NULL") unless account_id
         end
 
-        Serializers::Group.resource(inputs, scope)
+        Serializers::Groups::Group.resource(inputs, scope)
       end
     end
   end

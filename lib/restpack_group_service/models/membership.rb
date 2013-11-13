@@ -1,4 +1,4 @@
-module RestPack::Group::Service::Models
+module Models::Groups
   class Membership < ActiveRecord::Base
     self.table_name = :restpack_group_memberships
 

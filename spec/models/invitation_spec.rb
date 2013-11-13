@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Models::Invitation do
+describe Models::Groups::Invitation do
   it { should validate_presence_of(:application_id) }
   it { should validate_presence_of(:group_id) }
   it { should validate_presence_of(:inviter_id) }
@@ -16,14 +16,15 @@ describe Models::Invitation do
   it { should belong_to(:group) }
   it { should have_many(:memberships) }
 
-  Membership = Models::Membership
-  Invitation = Models::Invitation
+  Membership = Models::Groups::Membership
+  Invitation = Models::Groups::Invitation
+  Settings =   Models::Groups::Settings
 
   describe ".settings" do
     let(:invitation) { create(:invitation, invitee_id: 142857) }
     context "with existing settings" do
       it "resolves the correct settings" do
-        setting = Models::Settings.create({
+        setting = Settings.create({
           application_id: invitation.application_id
         })
         invitation.settings.should == setting

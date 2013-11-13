@@ -1,4 +1,4 @@
-module RestPack::Group::Service::Models
+module Models::Groups
   class Settings < ActiveRecord::Base
     self.table_name = :restpack_group_settings
 

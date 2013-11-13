@@ -1,4 +1,4 @@
-module RestPack::Group::Service::Models
+module Models::Groups
   class Invitation < ActiveRecord::Base
     self.table_name = :restpack_group_invitations
 
@@ -41,7 +41,7 @@ module RestPack::Group::Service::Models
     end
 
     def settings
-      Models::Settings.find_or_create_by({ application_id: self.application_id })
+      Settings.find_or_create_by({ application_id: self.application_id })
     end
 
     def self.accept(application_id, user_id, access_key) #TODO: GJ: skip if already a member

@@ -1,4 +1,4 @@
-module RestPack::Group::Service::Commands
+module Commands::Groups
   module Settings
     class Update < RestPack::Service::Command
       required do
@@ -17,14 +17,14 @@ module RestPack::Group::Service::Commands
           settings: []
         }
 
-        Models::Settings.transaction do
+        Models::Groups::Settings.transaction do
           inputs[:settings].each do |setting|
-            model = Models::Settings.find setting[:id]
+            model = Models::Groups::Settings.find setting[:id]
             model.data = {
               rsvp_url: setting[:rsvp_url]
             }
             model.save!
-            result[:settings] << Serializers::Settings.as_json(model)
+            result[:settings] << Serializers::Groups::Settings.as_json(model)
           end
         end
 

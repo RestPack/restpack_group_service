@@ -1,4 +1,4 @@
-module RestPack::Group::Service::Commands
+module Commands::Groups
   module Membership
     class List < RestPack::Service::Command
       required do

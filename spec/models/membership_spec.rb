@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Models::Membership do
+describe Models::Groups::Membership do
   it { should validate_presence_of(:application_id) }
   it { should validate_presence_of(:group_id) }
   it { should validate_presence_of(:user_id) }

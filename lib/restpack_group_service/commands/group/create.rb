@@ -1,4 +1,4 @@
-module RestPack::Group::Service::Commands
+module Commands::Groups
   module Group
     class Create < RestPack::Service::Command
       required do
@@ -20,8 +20,8 @@ module RestPack::Group::Service::Commands
       end
 
       def execute
-        groups = Models::Group.create!(inputs[:groups])
-        Serializers::Group.serialize(groups)
+        groups = Models::Groups::Group.create!(inputs[:groups])
+        Serializers::Groups::Group.serialize(groups)
       end
     end
   end

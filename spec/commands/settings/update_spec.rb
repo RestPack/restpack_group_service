@@ -1,10 +1,10 @@
 require 'spec_helper'
 
-describe Commands::Settings::Update do
+describe Commands::Groups::Settings::Update do
   let(:response) { subject.class.run(params) }
 
   before do
-    @setting = Models::Settings.create({
+    @setting = Models::Groups::Settings.create({
       application_id: 123,
       data: { 'rsvp_url' => 'http://somewhere.org/rsvp' }
     })
@@ -23,6 +23,6 @@ describe Commands::Settings::Update do
 
     @setting.reload
     @setting.data['rsvp_url'].should == 'http://new.io/rsvp'
-    response.result[:settings].first == Serializers::Settings.as_json(@setting)
+    response.result[:settings].first == Serializers::Groups::Settings.as_json(@setting)
   end
 end

@@ -1,4 +1,4 @@
-module RestPack::Group::Service::Models
+module Models::Groups
   class Group < ActiveRecord::Base
     self.table_name = :restpack_group_groups
 

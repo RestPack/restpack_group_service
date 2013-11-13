@@ -1,4 +1,4 @@
-module RestPack::Group::Service::Commands
+module Commands::Groups
   module Group
     class Get < RestPack::Service::Command
       required do
@@ -11,7 +11,7 @@ module RestPack::Group::Service::Commands
       end
 
       def execute
-        result = Serializers::Group.resource(inputs)
+        result = Serializers::Groups::Group.resource(inputs)
 
         if result[:groups].empty?
           status :not_found

@@ -1,4 +1,4 @@
-module RestPack::Group::Service::Commands
+module Commands::Groups
   module Invitation
     class Create < RestPack::Service::Command
       required do
@@ -19,9 +19,9 @@ module RestPack::Group::Service::Commands
       end
 
       def execute
-        invitations = Models::Invitation.create!(inputs[:invitations])
+        invitations = Models::Groups::Invitation.create!(inputs[:invitations])
         send_email(invitations)
-        Serializers::Invitation.serialize(invitations)
+        Serializers::Groups::Invitation.serialize(invitations)
       end
 
       private
