@@ -1,17 +1,15 @@
-module Commands::Groups
-  module Settings
-    class Get < RestPack::Service::Command
-      required do
-        integer :application_id
-      end
+module Commands::Groups::Settings
+  class Get < RestPack::Service::Command
+    required do
+      integer :application_id
+    end
 
-      def execute
-        settings = Models::Groups::Settings.find_or_create_by({
-          application_id: inputs[:application_id]
-        })
+    def execute
+      settings = Models::Groups::Settings.find_or_create_by({
+        application_id: inputs[:application_id]
+      })
 
-        Serializers::Groups::Settings.serialize(settings)
-      end
+      Serializers::Groups::Settings.serialize(settings)
     end
   end
 end

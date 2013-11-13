@@ -1,23 +1,21 @@
-module Commands::Groups
-  module Group
-    class Get < RestPack::Service::Command
-      required do
-        string :id
-        integer :application_id
-      end
+module Commands::Groups::Group
+  class Get < RestPack::Service::Command
+    required do
+      string :id
+      integer :application_id
+    end
 
-      optional do
-        string :include
-      end
+    optional do
+      string :include
+    end
 
-      def execute
-        result = Serializers::Groups::Group.resource(inputs)
+    def execute
+      result = Serializers::Groups::Group.resource(inputs)
 
-        if result[:groups].empty?
-          status :not_found
-        else
-          result
-        end
+      if result[:groups].empty?
+        status :not_found
+      else
+        result
       end
     end
   end
