@@ -1,5 +1,5 @@
 module Commands::Groups::Group
-  class Create < RestPack::Service::Command
+  class Create < RestPack::Service::Commands::Create
     required do
       array :groups do
         hash do
@@ -16,11 +16,6 @@ module Commands::Groups::Group
           end
         end
       end
-    end
-
-    def execute
-      groups = Models::Groups::Group.create!(inputs[:groups])
-      Serializers::Groups::Group.serialize(groups)
     end
   end
 end
