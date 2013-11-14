@@ -18,22 +18,22 @@ describe Models::Groups::Invitation do
 
   Membership = Models::Groups::Membership
   Invitation = Models::Groups::Invitation
-  Settings =   Models::Groups::Settings
+  Configuration =   Models::Groups::Configuration
 
-  describe ".settings" do
+  describe ".configuration" do
     let(:invitation) { create(:invitation, invitee_id: 142857) }
-    context "with existing settings" do
-      it "resolves the correct settings" do
-        setting = Settings.create({
+    context "with existing configuration" do
+      it "resolves the correct configuration" do
+        configuration = Configuration.create({
           application_id: invitation.application_id
         })
-        invitation.settings.should == setting
+        invitation.configuration.should == configuration
       end
     end
 
-    context "with no existing settings" do
-      it "resolves settings" do
-        invitation.settings.id.should_not == nil
+    context "with no existing configuration" do
+      it "resolves configuration" do
+        invitation.configuration.id.should_not == nil
       end
     end
   end

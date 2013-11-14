@@ -40,8 +40,8 @@ module Models::Groups
       write_attribute(:status_id, STATUS[status])
     end
 
-    def settings
-      Settings.find_or_create_by({ application_id: self.application_id })
+    def configuration
+      Configuration.find_or_create_by({ application_id: self.application_id })
     end
 
     def self.accept(application_id, user_id, access_key) #TODO: GJ: skip if already a member

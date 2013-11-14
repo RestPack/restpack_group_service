@@ -1,9 +1,9 @@
 module Serializers::Groups
-  class Settings
+  class Configuration
     include RestPack::Serializer
 
-    self.model_class = Models::Groups::Settings
-    self.key = :settings
+    self.model_class = Models::Groups::Configuration
+    self.key = :configurations
 
     attributes :id, :application_id, :rsvp_url
 

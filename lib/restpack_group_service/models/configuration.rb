@@ -1,6 +1,6 @@
 module Models::Groups
-  class Settings < ActiveRecord::Base
-    self.table_name = :restpack_group_settings
+  class Configuration < ActiveRecord::Base
+    self.table_name = :restpack_group_configurations
 
     attr_accessible :application_id, :data
     validates_presence_of :application_id
