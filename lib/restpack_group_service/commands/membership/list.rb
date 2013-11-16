@@ -15,14 +15,14 @@ module Commands::Groups::Membership
     end
 
     def execute
-      scope = Models::Membership.all
+      scope = Models::Groups::Membership.all
       if is_account_group
         scope = scope.where("account_id IS NOT NULL")
       else
         scope = scope.where("account_id IS NULL") unless account_id
       end
 
-      Serializers::Membership.resource(inputs, scope)
+      Serializers::Groups::Membership.resource(inputs, scope)
     end
   end
 end
