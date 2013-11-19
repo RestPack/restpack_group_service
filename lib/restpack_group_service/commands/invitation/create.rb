@@ -28,9 +28,9 @@ module Commands::Groups::Invitation
     def send_email(invitations)
       invitations.each do |invitation|
         if invitation.email
-          rsvp_url = invitation.settings.data['rsvp_url']
+          rsvp_url = invitation.configuration.data['rsvp_url']
 
-          Commands::Email::Send.run!({
+          Messaging::Email::Send.run!({
             application_id: invitation.application_id,
             template: 'group.invitation',
             to: invitation.email,
