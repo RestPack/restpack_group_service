@@ -1,7 +1,8 @@
 require 'spec_helper'
 
 describe Commands::Groups::Group::Create do
-  it_acts_as_create_command(:groups, :group)
+  it_acts_as_single_create_command(:groups, :group)
 
-  pending 'validate command inputs'
+  is_required :application_id, :created_by, :name
+  is_optional :account_id, :description, :invitation_required
 end
