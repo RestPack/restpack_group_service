@@ -1,8 +1,8 @@
-module Serializers::Groups
+module Group::Serializers
   class Invitation
     include RestPack::Serializer
 
-    self.model_class = Models::Groups::Invitation
+    self.model_class = ::Group::Models::Invitation
     self.key = :invitations
 
     attributes :id, :application_id, :group_id, :inviter_id, :invitee_id,

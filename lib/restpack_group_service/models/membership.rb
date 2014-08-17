@@ -1,4 +1,4 @@
-module Models::Groups
+module Group::Models
   class Membership < ActiveRecord::Base
     self.table_name = :restpack_group_memberships
 

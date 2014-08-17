@@ -1,8 +1,8 @@
-module Serializers::Groups
+module Group::Serializers
   class Group
     include RestPack::Serializer
 
-    self.model_class = Models::Groups::Group
+    self.model_class = ::Group::Models::Group
     self.key = :groups
 
     attributes :id, :application_id, :account_id, :created_by, :name,

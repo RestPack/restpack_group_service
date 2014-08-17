@@ -1,5 +1,5 @@
-module Commands::Groups::Group
-  class List < RestPack::Service::Command
+module Group::Commands::Group
+  class List < RestPack::Service::Commands::List
     required do
       integer :application_id
     end
@@ -13,8 +13,10 @@ module Commands::Groups::Group
       integer :page_size
     end
 
-    def execute
-      scope = Models::Groups::Group.all
+    private
+
+    def scope
+      scope = Model.all
 
       if is_account_group
         scope = scope.where("account_id IS NOT NULL")
@@ -22,7 +24,7 @@ module Commands::Groups::Group
         scope = scope.where("account_id IS NULL") unless account_id
       end
 
-      Serializers::Groups::Group.resource(inputs, scope)
+      scope
     end
   end
 end

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Models::Groups::Invitation do
+describe Group::Models::Invitation do
   it { should validate_presence_of(:application_id) }
   it { should validate_presence_of(:group_id) }
   it { should validate_presence_of(:inviter_id) }
@@ -16,9 +16,9 @@ describe Models::Groups::Invitation do
   it { should belong_to(:group) }
   it { should have_many(:memberships) }
 
-  Membership = Models::Groups::Membership
-  Invitation = Models::Groups::Invitation
-  Configuration =   Models::Groups::Configuration
+  Membership = Group::Models::Membership
+  Invitation = Group::Models::Invitation
+  Configuration =   Group::Models::Configuration
 
   describe ".configuration" do
     let(:invitation) { create(:invitation, invitee_id: 142857) }

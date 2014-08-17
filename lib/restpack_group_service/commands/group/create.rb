@@ -1,5 +1,5 @@
-module Commands::Groups::Group
-  class Create < RestPack::Service::Commands::SingleCreate
+module Group::Commands::Group
+  class Create < RestPack::Service::Command #RestPack::Service::Commands::SingleCreate
     required do
       integer :application_id
       integer :created_by
