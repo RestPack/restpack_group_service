@@ -1,5 +1,5 @@
-module Commands::Groups::Membership
-  class List < RestPack::Service::Command
+module Group::Commands::Membership
+  class List < RestPack::Service::Commands::List
     required do
       integer :application_id
     end
@@ -14,15 +14,18 @@ module Commands::Groups::Membership
       string :include
     end
 
-    def execute
-      scope = Models::Groups::Membership.all
+    private
+
+    def scope
+      scope = Model.all
+
       if is_account_group
         scope = scope.where("account_id IS NOT NULL")
       else
         scope = scope.where("account_id IS NULL") unless account_id
       end
 
-      Serializers::Groups::Membership.resource(inputs, scope)
+      scope
     end
   end
 end

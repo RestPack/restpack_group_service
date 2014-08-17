@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Commands::Groups::Group::List do
+describe Group::Commands::Group::List do
   is_required :application_id
   is_optional :account_id, :created_by, :is_account_group, :page, :page_size
 

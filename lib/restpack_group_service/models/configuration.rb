@@ -1,4 +1,4 @@
-module Models::Groups
+module Group::Models
   class Configuration < ActiveRecord::Base
     self.table_name = :restpack_group_configurations
 

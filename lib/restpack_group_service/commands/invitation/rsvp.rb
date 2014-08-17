@@ -1,4 +1,4 @@
-module Commands::Groups::Invitation
+module Group::Commands::Invitation
   class Rsvp < RestPack::Service::Command
     required do
       integer :application_id
@@ -8,7 +8,7 @@ module Commands::Groups::Invitation
     end
 
     def execute
-      invitation = Models::Groups::Invitation.find_by({
+      invitation = Model.find_by({
         application_id: inputs[:application_id],
         access_key: inputs[:access_key]
       })
@@ -20,7 +20,7 @@ module Commands::Groups::Invitation
           invitation.reject(inputs[:user_id])
         end
 
-        Serializers::Groups::Invitation.serialize(invitation)
+        Serializer.serialize(invitation)
       else
         status :not_found unless invitation
       end

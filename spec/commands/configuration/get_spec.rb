@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Commands::Groups::Configuration::Get do
+describe Group::Commands::Configuration::Get do
   is_required :application_id
 
   let(:response) { subject.class.run(params) }
@@ -22,7 +22,7 @@ describe Commands::Groups::Configuration::Get do
 
   context 'when a record exists' do
     before do
-      @configuration = Models::Groups::Configuration.create({
+      @configuration = Group::Models::Configuration.create({
         application_id: 123,
         data: { 'rsvp_url' => 'http://somewhere.org/rsvp' }
       })

@@ -1,5 +1,5 @@
-module Commands::Groups::Configuration
-  class Update < RestPack::Service::Command
+module Group::Commands::Configuration
+  class Update < RestPack::Service::Commands::Update
     required do
       array :configurations do
         hash do
@@ -11,23 +11,16 @@ module Commands::Groups::Configuration
       end
     end
 
-    def execute
-      result = {
-        configurations: []
+    private
+
+    private
+
+    def update_model(model, model_inputs)
+      model.data = {
+        rsvp_url: model_inputs[:rsvp_url]
       }
-
-      Models::Groups::Configuration.transaction do
-        inputs[:configurations].each do |configuration|
-          model = Models::Groups::Configuration.find configuration[:id]
-          model.data = {
-            rsvp_url: configuration[:rsvp_url]
-          }
-          model.save!
-          result[:configurations] << Serializers::Groups::Configuration.as_json(model)
-        end
-      end
-
-      return result
+      model.save!
+      model
     end
   end
 end

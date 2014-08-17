@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Commands::Groups::Invitation::Rsvp do
+describe Group::Commands::Invitation::Rsvp do
   let(:response) { subject.class.run(params) }
   let(:params) { {} }
 

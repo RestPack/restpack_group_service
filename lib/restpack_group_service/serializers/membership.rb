@@ -1,8 +1,8 @@
-module Serializers::Groups
+module Group::Serializers
   class Membership
     include RestPack::Serializer
 
-    self.model_class = Models::Groups::Membership
+    self.model_class = ::Group::Models::Membership
     self.key = :memberships
 
     attributes :id, :application_id, :account_id, :group_id, :user_id,
